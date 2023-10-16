@@ -8,6 +8,10 @@ Lembre-se que, no caso do campo **tipo**, é necessário que o tipo já venha se
 
 **Obs.: não mostre a senha no formulário.**
 
+2) Na classe `Usuario` faça o método `excluir`.
+
+3) Na página `usuario-exclui.php` programe o necessário para realizar efetivamente a exclusão do usuário escolhido.
+
 ---
 
 ## 10/10/2023
