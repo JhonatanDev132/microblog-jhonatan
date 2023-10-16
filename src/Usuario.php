@@ -82,6 +82,17 @@ class Usuario {
         }
     }
 
+    // DELETE de Usuário
+    public function excluir():void {
+        $sql = "DELETE FROM usuarios WHERE id = :id";
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindValue(":id", $this->id, PDO::PARAM_INT);
+            $consulta->execute();
+        } catch (Exception $erro) {
+            die("Erro ao excluir usuário: ".$erro->getMessage());
+        }
+    }
 
 
 
