@@ -4,9 +4,19 @@ use Microblog\Utilitarios;
 
 require_once "../inc/cabecalho-admin.php";
 
+/* Script para carregamento */
 $usuario = new Usuario;
 $usuario->setId($_GET["id"]);
 $dados = $usuario->listarUm();
+
+/* Script para atualização */
+if( isset($_POST["atualizar"]) ){
+	$usuario->setNome($_POST['nome']);
+	$usuario->setEmail($_POST['email']);
+	$usuario->setTipo($_POST['tipo']);
+
+	// E aí vem a senha...
+}
 ?>
 
 
