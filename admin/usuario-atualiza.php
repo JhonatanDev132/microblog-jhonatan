@@ -28,8 +28,12 @@ if( isset($_POST["atualizar"]) ){
 	} else {
 		/* Caso contrário, se o usuário digitou alguma coisa
 		no campo, precisaremos verificar o que foi digitado. */
-		
+		$usuario->setSenha( 
+			$usuario->verificaSenha($_POST['senha'], $dados['senha']) 
+		);
 	}
+
+	echo $usuario->getSenha();
 }
 ?>
 
