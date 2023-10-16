@@ -33,7 +33,8 @@ if( isset($_POST["atualizar"]) ){
 		);
 	}
 
-	echo $usuario->getSenha();
+	$usuario->atualizar();
+	header("location:usuarios.php");
 }
 ?>
 
