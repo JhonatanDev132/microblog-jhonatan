@@ -1,5 +1,16 @@
 <?php 
+// use Microblog\ControleDeAcesso;
+// use Microblog\Usuario;
+use Microblog\{ControleDeAcesso, Usuario};
+
 require_once "inc/cabecalho.php";
+
+/* Programação das mensagens de feedback (campos obrigatórios,
+dados incorretos, saiu do sistema etc) */
+if( isset($_GET["campos_obrigatorios"]) ){
+	$feedback = "Você deve logar primeiro!";
+}
+
 ?>
 
 
@@ -9,8 +20,11 @@ require_once "inc/cabecalho.php";
 
         <form action="" method="post" id="form-login" name="form-login" class="mx-auto w-50">
 
-                
-				<p class="my-2 alert alert-warning text-center"></p>
+                <?php if( isset($feedback) ){ ?>
+				<p class="my-2 alert alert-warning text-center">
+					<?=$feedback?>
+				</p>
+				<?php } ?>
 
 				<div class="mb-3">
 					<label for="email" class="form-label">E-mail:</label>
@@ -24,6 +38,18 @@ require_once "inc/cabecalho.php";
 				<button class="btn btn-primary btn-lg" name="entrar" type="submit">Entrar</button>
 
 			</form>
+
+<?php
+if(isset($_POST['entrar'])){
+	
+	if( empty($_POST['email']) || empty($_POST['senha']) ){
+		header("location:login.php?campos_obrigatorios");
+	} else {
+		echo "Ok, você pode logar...";
+	}
+}
+?>
+
     </div>
     
     
