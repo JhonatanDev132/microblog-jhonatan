@@ -20,7 +20,7 @@ final class ControleDeAcesso {
             de sessão, redirecione para o formulário
             de login e pare completamente o script. */
             session_destroy();
-            header("location:../login.php");
+            header("location:../login.php?acesso_proibido");
             die(); // ou exit;
         }
     }
