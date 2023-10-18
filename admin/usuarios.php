@@ -1,7 +1,12 @@
 <?php 
 require_once "../inc/cabecalho-admin.php";
 use Microblog\Usuario;
-use Microblog\Utilitarios;
+
+/* Verificando se quem está acessando esta página tem permissão pra acessá-la.
+(se o if do método abaixo for TRUE, então significa que o usuário
+NÃO É um admin e portanto esta página não será autorizada para uso) */
+$sessao->verificaAcessoAdmin();
+
 $usuario = new Usuario;
 $listaDeUsuarios = $usuario->listar();
 ?>
