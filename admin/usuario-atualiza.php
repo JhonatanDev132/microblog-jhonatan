@@ -1,6 +1,7 @@
 <?php 
 use Microblog\Usuario;
-use Microblog\Utilitarios;
+$sessao->verificaAcessoAdmin();
+
 
 require_once "../inc/cabecalho-admin.php";
 
