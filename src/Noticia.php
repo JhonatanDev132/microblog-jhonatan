@@ -13,6 +13,21 @@ final class Noticia {
     private string $termo; // será usado na busca
     private PDO $conexao;
 
+    /* Propriedades cujos tipos são ASSOCIADOS
+    às classes já existentes. Isso permitirá usar
+    recursos destas classes à partir de Noticia. */
+    public Usuario $usuario;
+    public Categoria $categoria;
+
+    public function __construct(){
+        /* Ao criar um objeto Noticia, aproveitamos para
+        instanciar objetos de Usuario e Categoria */
+        $this->usuario = new Usuario;
+        $this->categoria = new Categoria;
+
+        $this->conexao = Banco::conecta();
+    }
+
 
     public function getId(): int
     {
