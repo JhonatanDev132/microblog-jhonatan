@@ -2,8 +2,39 @@
 require_once "../inc/cabecalho-admin.php";
 use Microblog\Noticia;
 use Microblog\Utilitarios;
+use Microblog\Categoria;
+Utilitarios::dump($_SESSION);
+
 $noticia = new Noticia;
-Utilitarios::dump($noticia);
+$listaDeCategorias = $noticia->categoria->listar();
+
+if(isset($_POST['inserir'])){
+	$noticia->setTitulo($_POST["titulo"]);
+	$noticia->setTexto($_POST["texto"]);
+	$noticia->setResumo($_POST["resumo"]);
+	$noticia->setDestaque($_POST["destaque"]);
+	
+	// ID do usuário que está inserindo a notícia
+	$noticia->usuario->setId($_SESSION["id"]);
+	
+	// ID da categoria escolhida para a notícia
+	$noticia->categoria->setId($_POST["categoria"]);
+
+	/* Sobre a imagem */
+	// Capturar o arquivo de imagem
+	$imagem = $_FILES["imagem"];
+
+	// Enviar para o servidor
+	$noticia->upload($imagem);
+
+	// Capturar o nome/extensão e enviar para o banco de dados
+	$noticia->setImagem($imagem["name"]);
+
+	// Executar no banco
+	$noticia->inserir();
+
+	header("location:noticias.php");
+}
 ?>
 
 
@@ -14,17 +45,23 @@ Utilitarios::dump($noticia);
 		Inserir nova notícia
 		</h2>
 				
-		<form class="mx-auto w-75" action="" method="post" id="form-inserir" name="form-inserir">
+		<form class="mx-auto w-75" action="" method="post" id="form-inserir" name="form-inserir" enctype="multipart/form-data">
 
             <div class="mb-3">
                 <label class="form-label" for="categoria">Categoria:</label>
                 <select class="form-select" name="categoria" id="categoria" required>
 					<option value=""></option>
-					<option value="1">Ciência</option>
-					<option value="2">Educação</option>
-					<option value="3">Tecnologia</option>
+					<?php foreach ($listaDeCategorias as $itemCategoria) {
+						
+					?>
+					<option value="<?=$itemCategoria['id']?>">
+						<?=$itemCategoria['nome']?>
+					</option>
+					<?php }?>
 				</select>
 			</div>
+
+			
 
 			<div class="mb-3">
                 <label class="form-label" for="titulo">Título:</label>
@@ -38,7 +75,7 @@ Utilitarios::dump($noticia);
 
 			<div class="mb-3">
                 <label class="form-label" for="resumo">Resumo (máximo de 300 caracteres):</label>
-                <span id="maximo" class="badge bg-danger">0</span>
+                <span id="maximo" class="badge bg-danger"></span>
                 <textarea class="form-control" required name="resumo" id="resumo" cols="50" rows="2" maxlength="300"></textarea> 
 			</div>
 

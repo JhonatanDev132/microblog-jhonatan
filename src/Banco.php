@@ -7,9 +7,21 @@ abstract class Banco {
     private static string $usuario = "root";
     private static string $senha = "";
     private static string $banco = "microblog_jhonatan";
-    private static PDO $conexao; 
+
+    /* Operador ? "nullable typehint"
+    Quando usado, indica que a propriedade/atributo da
+    classe pode conter um valor null ou pode ser o tipo
+    PDO.
+    
+    Neste caso, a propriedade conexao é inicializada como nula,
+    mas a partir do momento em que uma conexão é feita,
+    ela passa a valer PDO.*/
+    private static ?PDO $conexao = null; 
 
     public static function conecta():PDO {
+        /* Só conecte se não houver conexão...
+        Se conexão for nula, faça as ações do try/catch */
+        if (self::$conexao === null ){
         try {
             self::$conexao = new PDO(
                 "mysql:host=".self::$servidor."; 
@@ -22,6 +34,7 @@ abstract class Banco {
         } catch (Exception $erro) {
             die("Deu ruim: ".$erro->getMessage());
         }
+    }
         return self::$conexao;
     }
 }
