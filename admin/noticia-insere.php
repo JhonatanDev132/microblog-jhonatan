@@ -9,8 +9,24 @@ devido à associação entre classes. */
 $noticia = new Noticia;
 $listaDeCategorias = $noticia->categoria->listar();
 
+if(isset($_POST["inserir"])){
+	$noticia->setTitulo($_POST["titulo"]);
+	$noticia->setTexto($_POST["texto"]);
+	$noticia->setResumo($_POST["resumo"]);
+	$noticia->setDestaque($_POST["destaque"]);
 
+	// ID do usuário que está inserindo a notícia
+	$noticia->usuario->setId($_SESSION["id"]);
+	
+	// ID da categoria escolhida para a notícia
+	$noticia->categoria->setId($_POST['categoria']);
 
+	Utilitarios::dump($noticia);
+
+	/* Sobre a imagem
+	- Capturar o arquivo de imagem e enviar para o servidor 
+	- Capturar o nome/extensão e enviar para o banco de dados */
+}
 ?>
 
 
