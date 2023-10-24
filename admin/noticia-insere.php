@@ -1,11 +1,16 @@
 <?php 
 require_once "../inc/cabecalho-admin.php";
 use Microblog\Noticia;
-use Microblog\Categoria;
 use Microblog\Utilitarios;
 
-$categoria = new Categoria;
-$listaDeCategorias = $categoria->listar();
+/* Usamos o próprio objeto Noticia para acessar
+o objeto Categoria e seu método listar(). Isso é possível
+devido à associação entre classes. */
+$noticia = new Noticia;
+$listaDeCategorias = $noticia->categoria->listar();
+
+
+
 ?>
 
 
@@ -28,7 +33,7 @@ $listaDeCategorias = $categoria->listar();
 						<?=$itemCategoria['nome']?>
 					</option>
 				<?php } ?>
-				
+
 				</select>
 			</div>
 
