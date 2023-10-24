@@ -2,10 +2,13 @@
 
 ## Logar com usuário Editor e cadastrar
 
+### CATEGORIA
+
+Educação
+
 ### TÍTULO
 
 Udacity lança curso de deep learning em português
-
 
 ### TEXTO
 
@@ -32,6 +35,10 @@ felicidade.jpg
 
 
 ---
+
+### CATEGORIA
+
+Segurança
 
 ### TÍTULO
 
@@ -61,6 +68,10 @@ sanduiche.jpg
 
 
 ## Logar com usuário Admin e cadastrar
+
+### CATEGORIA
+
+Mercado
 
 ### TÍTULO
 
