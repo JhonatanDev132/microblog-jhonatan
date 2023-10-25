@@ -8,6 +8,10 @@ require_once "../inc/cabecalho-admin.php";
 
         <h2 class="display-4">Olá <?=$_SESSION["nome"]?>!</h2>
 
+        <?php if( isset($_GET["perfil_atualizado"]) ){ ?>
+            <p class="alert alert-primary">Dados atualizados com sucesso!</p>
+        <?php } ?>
+
         <p class="fs-5">Você está no <b>painel de controle e administração</b> do
 		site Microblog e seu <b>nível de acesso</b> é 
         <span class="badge bg-dark"> <?=$_SESSION["tipo"]?> </span>.</p>
@@ -18,26 +22,23 @@ require_once "../inc/cabecalho-admin.php";
                 <i class="bi bi-person"></i> <br>
                 Meu perfil
             </a>
-
-            <?php if($_SESSION['tipo'] == "admin"){ ?>
-			<a class="btn btn-dark bg-gradient btn-lg" href="categorias.php">
-                <i class="bi bi-tags"></i> <br>
-                Categorias
-            </a>
-            <?php } ?>
-
+			
 			<a class="btn btn-dark bg-gradient btn-lg" href="noticias.php">
                 <i class="bi bi-newspaper"></i> <br>
                 Notícias
             </a>
             
-
-            <?php if($_SESSION['tipo'] == "admin"){ ?>
+            <?php if($_SESSION["tipo"] === "admin"){ ?>
+            <a class="btn btn-dark bg-gradient btn-lg" href="categorias.php">
+                <i class="bi bi-tags"></i> <br>
+                Categorias
+            </a>
 			<a class="btn btn-dark bg-gradient btn-lg" href="usuarios.php">
                 <i class="bi bi-people"></i> <br>
                 Usuários
             </a>
             <?php } ?>
+            
         </div>
     </div>
 </article>
@@ -46,4 +47,3 @@ require_once "../inc/cabecalho-admin.php";
 <?php 
 require_once "../inc/rodape-admin.php";
 ?>
-
