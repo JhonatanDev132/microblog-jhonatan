@@ -76,10 +76,26 @@ final class Noticia {
             $sql = "SELECT id, titulo, data, destaque
                     FROM noticias WHERE usuario_id = :usuario_id
                     ORDER BY data DESC";            
-        }      
+        }  
+        
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            
+            /* Somente se NÃO for um admin, trate o parâmetro abaixo */
+            if( $this->usuario->getTipo() !== "admin" ){
+                $consulta->bindValue(
+                    ":usuario_id", $this->usuario->getId(), PDO::PARAM_INT
+                );
+            }
+            
+            $consulta->execute();
+            $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $erro) {
+            die("Erro ao carregar notícias: ".$erro->getMessage());
+        }
 
-
-    }
+        return $resultado;
+    } // final listar()
 
 
 
