@@ -90,7 +90,45 @@ final class Noticia {
             destaque FROM noticias
             WHERE usuario_id = :usuario_id ORDER BY data DESC";
         }
+
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            /* Somente se não for admin, trate o parâmetro abaixo */
+            if( $this->usuario->getTipo() !== 'admin'){
+                $consulta->bindValue(":usuario_id", $this->usuario->getId(), PDO::PARAM_INT);
+            }
+            $consulta->execute();
+            $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+        }catch(Exception $erro){
+            die("Erro ao carregar noticias".$erro->getMessage());
+        }
+
+        return $resultado;
         
+    }
+
+    public function listarUm():array{
+        if ($this->usuario->getTipo() === 'admin'){ 
+            $sql = "SELECT * FROM noticias WHERE id = :id";
+        } else {
+            $sql = "SELECT * FROM noticias WHERE id = :id AND usuario_id = :usuario_id";
+        }
+
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindValue(":id", $this->id, PDO::PARAM_INT);
+            // Somente se não for admin
+            if( $this->usuario->getTipo() !== 'admin'){
+                $consulta->bindValue(":usuario_id", $this->usuario->getId(), PDO::PARAM_INT);
+            }
+            $consulta->execute();
+            $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+
+        } catch (Exception $erro) {
+            die("Erro ao atualizar a noticia: ".$erro->getMessage());
+        }
+
+        return $resultado;
     }
 
 

@@ -2,12 +2,16 @@
 require_once "../inc/cabecalho-admin.php";
 
 use Microblog\Noticia;
+use Microblog\Utilitarios;
+
 $noticia = new Noticia;
 
 /* Capturando o id e o tipo do usuário logado
 e associando estes valores às propriedades do objeto */
 $noticia->usuario->setId($_SESSION['id']);
 $noticia->usuario->setTipo($_SESSION['tipo']);
+
+$listaDeNoticia = $noticia->listar();
 ?>
 
 
@@ -15,7 +19,7 @@ $noticia->usuario->setTipo($_SESSION['tipo']);
 	<article class="col-12 bg-white rounded shadow my-1 py-4">
 		
 		<h2 class="text-center">
-		Notícias <span class="badge bg-dark">X</span>
+		Notícias <span class="badge bg-dark"><?=count($listaDeNoticia)?></span>
 		</h2>
 
 		<p class="text-center mt-5">
@@ -31,30 +35,36 @@ $noticia->usuario->setTipo($_SESSION['tipo']);
 					<tr>
                         <th>Título</th>
                         <th>Data</th>
-                        <th>Autor</th>
+						<?php if ($_SESSION['tipo'] === 'admin') {?>
+							<th>Autor</th>
+						<?php }?>
+						<th>Destaque</th>
 						<th class="text-center">Operações</th>
 					</tr>
 				</thead>
 
 				<tbody>
-
+	<?php foreach($listaDeNoticia as $dadosNoticia){ ?>
 					<tr>
-                        <td> Título da notícia... </td>
-                        <td> 21/12/2112 21:12 </td>
-                        <td> Autor da notícia... </td>
-						<td class="text-center">
+                        <td> <?=$dadosNoticia['titulo']?> </td>
+                        <td> <?=$dadosNoticia['data']?></td>
+						<?php if($_SESSION['tipo'] === 'admin') { ?>
+                        <td> <?=$dadosNoticia['autor'];?></td>
+						<?php } ?>
+						<td> <?=$dadosNoticia['destaque']?></td>
+						<td class="text-center" colspan="2">
 							<a class="btn btn-warning" 
-							href="noticia-atualiza.php">
+							href="noticia-atualiza.php?id=<?=$dadosNoticia['id']?>">
 							<i class="bi bi-pencil"></i> Atualizar
 							</a>
 						
 							<a class="btn btn-danger excluir" 
-							href="noticia-exclui.php">
+							href="noticia-exclui.php?id=<?=$dadosNoticia['id']?>">
 							<i class="bi bi-trash"></i> Excluir
 							</a>
 						</td>
 					</tr>
-
+	<?php } ?>
 				</tbody>                
 			</table>
 	</div>
