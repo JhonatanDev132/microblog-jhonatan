@@ -61,6 +61,28 @@ final class Noticia {
     }
 
 
+    public function listar():array {
+        
+        /* Se o tipo de usuário logado for admin */
+        if( $this->usuario->getTipo() === "admin" ){
+            // Considere o SQL abaixo (pega tudo de todos)
+            $sql = "SELECT noticias.id, noticias.titulo, 
+                    noticias.data, usuarios.nome AS autor, noticias.destaque
+                    FROM noticias INNER JOIN usuarios
+                    ON noticias.usuario_id = usuarios.id
+                    ORDER BY data DESC";
+        } else {
+            // Senão, considere o SQL abaixo (pega somente referente ao editor)
+            $sql = "SELECT id, titulo, data, destaque
+                    FROM noticias WHERE usuario_id = :usuario_id
+                    ORDER BY data DESC";            
+        }      
+
+
+    }
+
+
+
 
     /* Método para upload de foto */
     public function upload(array $arquivo):void {
