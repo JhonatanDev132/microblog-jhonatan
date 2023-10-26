@@ -41,21 +41,19 @@ class Categoria {
     }
 
     public function inserir():void {
-        $sql = "INSERT INTO categorias(nome)
-                VALUES(:nome)";
+        $sql = "INSERT INTO categorias(nome) VALUES(:nome)";
 
         try {
             $consulta = $this->conexao->prepare($sql);
             $consulta->bindValue(":nome", $this->nome, PDO::PARAM_STR);
             $consulta->execute();
         } catch (Exception $erro) {
-            die("Erro ao inserir usuário: ".$erro->getMessage());
+            die("Erro ao inserir categoria: ".$erro->getMessage());
         }
-    }   
+    }  
 
     public function atualizar():void {
-        $sql = "UPDATE categorias SET nome = :nome
-        WHERE id = :id";
+        $sql = "UPDATE categorias SET nome = :nome WHERE id = :id";
 
         try {
             $consulta = $this->conexao->prepare($sql);
@@ -63,7 +61,7 @@ class Categoria {
             $consulta->bindValue(":nome", $this->nome, PDO::PARAM_STR);
             $consulta->execute();
         } catch (Exception $erro) {
-            die("Erro ao atualizar usuário: ".$erro->getMessage());
+            die("Erro ao atualizar categoria: ".$erro->getMessage());
         }
     }
 
@@ -99,7 +97,7 @@ class Categoria {
    
     public function setNome(string $nome): void
     {
-        $this->nome = $nome = filter_var($nome, FILTER_SANITIZE_NUMBER_INT);
+        $this->nome = $nome = filter_var($nome, FILTER_SANITIZE_SPECIAL_CHARS);
     }
 
 

@@ -131,6 +131,60 @@ final class Noticia {
         return $resultado;
     }
 
+    public function listarDestaques() : array {
+        $sql = "SELECT id, titulo, resumo, imagem FROM noticias
+        WHERE destaque = :destaque ORDER BY data DESC";
+
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindValue(":destaque", $this->destaque, PDO::PARAM_STR);
+            $consulta->execute();
+            $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+        } catch(Exception $erro) {
+            die("Erro ao carregar destaques: ".$erro->getMessage());
+        }
+        return $resultado;
+    }
+
+    public function listarTodas() : array {
+        $sql = "SELECT id, data, titulo, resumo FROM noticias ORDER BY data DESC";
+
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->execute();
+            $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $erro) {
+            die("Erro ao listar Todas: ".$erro->getMessage());
+        }
+
+        return $resultado;
+    }
+
+    public function listarDetalhes() : array {
+        $sql = "SELECT 
+            noticias.id,
+            noticias.titulo,
+            noticias.data,
+            usuarios.nome AS autor,
+            noticias.texto,
+            noticias.imagem
+        FROM noticias INNER JOIN usuarios 
+        ON noticias.usuario_id = usuarios.id 
+        WHERE noticias.id = :id";
+
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindValue(":id", $this->id, PDO::PARAM_INT);
+            $consulta->execute();
+            $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+        } catch (Exception $erro) {
+            die("Erro ao listar detalhes: ".$erro->getMessage());
+        }
+
+        return $resultado;
+
+    }
+
      public function atualizar():void {
         if($this->usuario->getTipo() === "admin"){
             $sql = "UPDATE noticias SET
