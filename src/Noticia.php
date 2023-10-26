@@ -150,13 +150,11 @@ final class Noticia {
             $consulta->bindValue(":imagem", $this->imagem, PDO::PARAM_STR);
             $consulta->bindValue(":destaque", $this->destaque, PDO::PARAM_STR);
             $consulta->bindValue(":categoria_id", $this->categoria->getId(), PDO::PARAM_INT);
-            
             if($this->usuario->getTipo() !== "admin"){
                 $consulta->bindValue(
                     ":usuario_id", $this->usuario->getId(), PDO::PARAM_INT
                 );
             }
-
             $consulta->execute();
         } catch (Exception $erro) {
             die("Erro ao atualizar notícia: " . $erro->getMessage());
@@ -164,6 +162,25 @@ final class Noticia {
     }
 
 
+    public function excluir():void {
+        if($this->usuario->getTipo() === "admin"){
+            $sql = "DELETE FROM noticias WHERE id = :id";
+        } else {
+            $sql = "DELETE FROM noticias 
+                    WHERE id = :id AND usuario_id = :usuario_id";
+        }
+
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindValue(":id", $this->id, PDO::PARAM_INT);
+            if($this->usuario->getTipo() !== "admin"){
+                $consulta->bindValue(":usuario_id", $this->usuario->getId(), PDO::PARAM_INT);
+            }
+            $consulta->execute();
+        } catch (Exception $erro) {
+            die("Erro ao excluir notícia: " . $erro->getMessage());
+        }
+    }
 
 
 
