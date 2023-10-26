@@ -1,24 +1,45 @@
 <?php
 require_once "../inc/cabecalho-admin.php";
+
 use Microblog\Noticia;
 use Microblog\Utilitarios;
 
 $noticia = new Noticia;
 
+// Carregando as categorias para o <select> HTML
 $listaDeCategorias = $noticia->categoria->listar();
 
+// Carregando os dados de quem está logado
 $noticia->usuario->setId($_SESSION['id']);
 $noticia->usuario->setTipo($_SESSION['tipo']);
+
 $noticia->setId($_GET['id']);
 
 $dados = $noticia->listarUm();
 
-if(isset($_POST['atualizar'])){
-    $noticia->setTitulo($_POST['titulo']);
-    $noticia->setTexto($_POST['texto']);
-    $noticia->setResumo($_POST['resumo']);
-    $noticia->setDestaque($_POST['destaque']);
-    $noticia->categoria->setId($_POST['categoria']);
+if(isset($_POST["atualizar"])){
+    $noticia->setTitulo($_POST["titulo"]);
+    $noticia->setTexto($_POST["texto"]);
+    $noticia->setResumo($_POST["resumo"]);
+    $noticia->setDestaque($_POST["destaque"]);
+    $noticia->categoria->setId($_POST["categoria"]);
+
+    /* Lógica/Algoritmo para atualizar a foto (se necessário) */
+
+    /* Se o campo imagem estiver vazio, então significa
+    que o usuário NÃO QUER TROCAR DE IMAGEM. Portanto,
+    vamos manter a imagem existente. */
+    if( empty($_FILES["imagem"]["name"]) ){
+        $noticia->setImagem($_POST["imagem-existente"]);
+    } else {
+        /* Caso contrário, vamos pegar a referência (nome/extensão) da nova imagem, fazer o upload do novo arquivo e enviar a referência
+        para o objeto usando o setter. */
+        $noticia->upload($_FILES["imagem"]);
+        $noticia->setImagem($_FILES["imagem"]["name"]);
+    }
+
+    $noticia->atualizar();
+    header("location:noticias.php");
 }
 ?>
 
