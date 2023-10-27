@@ -270,15 +270,18 @@ final class Noticia {
         return $resultado;
     }
 
-<<<<<<< Updated upstream
-
-=======
     public function listarPorCategoria() : array {
-        $sql = "SELECT noticias.id, noticias.titulo, noticias.data, 
-                    usuarios.nome AS autor, noticias.texto, noticias.imagem
-                FROM noticias INNER JOIN usuarios
-                ON noticias.usuario_id = usuarios.id
-                WHERE noticias.id = :id";
+        $sql = "SELECT
+        noticias.id,
+        noticias.titulo, 
+        noticias.data,
+        noticias.resumo, 
+        usuarios.nome AS autor,
+        categorias.nome AS categoria
+        FROM noticias 
+        INNER JOIN usuarios ON noticias.usuario_id = usuarios.id
+        INNER JOIN categorias ON noticias.categoria_id = categorias.id
+        WHERE noticias.categoria_id = :categoria_id";
         try {
             $consulta = $this->conexao->prepare($sql);
             $consulta->bindValue(":id", $this->id, PDO::PARAM_INT);
@@ -289,7 +292,6 @@ final class Noticia {
         }
         return $resultado;
     }
->>>>>>> Stashed changes
 
 
 
