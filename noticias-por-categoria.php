@@ -23,7 +23,7 @@ Utilitarios::dump($dados)
                     <?php foreach ($dados as $itemNoticia) { ?>
                     <a href="noticia.php?id=<?=$itemNoticia['id']?>" class="list-group-item list-group-item-action">
                         <h3 class="fs-6"><?=$itemNoticia['titulo']?></h3>
-                        <p><?=$itemNoticia['data']?> - <?=$itemNoticia['autor']?></p>
+                        <p><?=Utilitarios::formataData($itemNoticia['data'])?> - <?=$itemNoticia['autor']?></p>
                         <p><?=$itemNoticia['resumo']?></p>
                     </a>
                     <?php } ?>
