@@ -1,9 +1,7 @@
 <?php 
 use Microblog\Usuario;
-$sessao->verificaAcessoAdmin();
-
-
 require_once "../inc/cabecalho-admin.php";
+$sessao->verificaAcessoAdmin();
 
 /* Script para carregamento */
 $usuario = new Usuario;

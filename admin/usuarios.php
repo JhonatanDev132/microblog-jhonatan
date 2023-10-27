@@ -1,6 +1,6 @@
 <?php 
 require_once "../inc/cabecalho-admin.php";
-use Microblog\Usuario;
+
 /* Verificando se que está acessando esta página tem permissão para acessá-la.
 (se o if do método abaixo for TRUE, então significa que o usuário
 NÃO é um admin e portanto esta página não será autorizada para uso)*/
