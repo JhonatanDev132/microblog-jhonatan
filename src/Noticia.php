@@ -284,11 +284,11 @@ final class Noticia {
         WHERE noticias.categoria_id = :categoria_id";
         try {
             $consulta = $this->conexao->prepare($sql);
-            $consulta->bindValue(":id", $this->id, PDO::PARAM_INT);
+            $consulta->bindValue(":categoria_id", $this->categoria->getId(), PDO::PARAM_INT);
             $consulta->execute();
-            $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+            $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $erro) {
-            die("Erro ao abrir a categoria: ".$erro->getMessage());
+            die("Erro ao carregar notícias da categoria: ".$erro->getMessage());
         }
         return $resultado;
     }
