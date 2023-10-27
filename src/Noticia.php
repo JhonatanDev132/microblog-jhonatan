@@ -270,6 +270,33 @@ final class Noticia {
         return $resultado;
     }
 
+    // noticias-por-categoria.php
+    public function listarPorCategoria():array {
+        $sql = "SELECT 
+                    noticias.id, 
+                    noticias.titulo, 
+                    noticias.data, 
+                    noticias.resumo, 
+                    usuarios.nome AS autor, 
+                    categorias.nome AS categoria
+                
+                FROM noticias 
+                    INNER JOIN usuarios ON noticias.usuario_id = usuarios.id
+                    INNER JOIN categorias ON noticias.categoria_id = categorias.id
+                
+                WHERE noticias.categoria_id = :categoria_id";
+
+
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindValue(":id", $this->id, PDO::PARAM_INT);
+            $consulta->execute();
+            $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+        } catch (Exception $erro) {
+            die("Erro ao abrir a notícia: " . $erro->getMessage());
+        }
+        return $resultado;
+    }
 
 
 
