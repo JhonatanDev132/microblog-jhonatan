@@ -1,53 +1,26 @@
 <?php
 
-use Microblog\Utilitarios;
+use Microblog\Noticia;
 
-require_once "inc/cabecalho.php";
+$noticia = new Noticia;
 $noticia->setTermo($_GET["busca"]);
 $resultados = $noticia->busca();
-Utilitarios::dump($resultados);
+$quantidade = count($resultados);
+
+if($quantidade > 0 ){
 ?>
-
-
-<div class="row bg-white rounded shadow my-1 py-4">
-    <h2 class="col-12 fw-light">
-        Você procurou por <span class="badge bg-dark"><?=$noticia->getTermo()?></span>
-        obteve <span class="badge bg-info"><?=count($resultados)?></span> resultados
-    </h2>
-    <?php foreach($resultados as $itemNoticia){ ?>
-    <div class="col-12 my-1">
-        <article class="card">
-            <div class="card-body">
-                <h3 class="fs-4 card-title fw-light"><?=$itemNoticia['titulo']?></h3>
-                <p class="card-text">
-                <?=Utilitarios::formataData($itemNoticia['data'])?> - 
-                <?=$itemNoticia['resumo']?>
-                </p>
-                
-                <a href="noticia.php?id=<?=$itemNoticia['id']?>" class="btn btn-primary btn-sm">Continuar lendo</a>
-            </div>
-        </article>
+    <h2 class="fs-5">Resultados: <span><?=$quantidade?></span></h2>
+    <div class="list-group">
+        <?php foreach ($resultados as $itemNoticia) { ?>
+        <a class="list-group-item list-group-item-action" href="noticia.php?id=<?=$itemNoticia['id']?>">
+         <?=$itemNoticia['titulo']?>
+        </a>
+        <?php } ?>
     </div>
-    <?php } ?>
-
-    <div class="col-12 my-1">
-        <article class="card">
-            <div class="card-body">
-                <h3 class="fs-4 card-title fw-light">Título da notícia...</h3>
-                <p class="card-text">
-                    <time>Data da notícia</time> - 
-                    Resumo da notícia.
-                </p>
-                
-                <a href="noticia.php" class="btn btn-primary btn-sm">Continuar lendo</a>
-            </div>
-        </article>
-    </div>
-
-</div>        
-
-<?php 
-require_once "inc/todas.php";
-require_once "inc/rodape.php";
+<?php
+} else {
 ?>
-
+    <h2 class="fs-5 text-danger">Sem notícias</h2>
+<?php
+}
+?>
