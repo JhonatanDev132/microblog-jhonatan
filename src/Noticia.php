@@ -270,7 +270,26 @@ final class Noticia {
         return $resultado;
     }
 
+<<<<<<< Updated upstream
 
+=======
+    public function listarPorCategoria() : array {
+        $sql = "SELECT noticias.id, noticias.titulo, noticias.data, 
+                    usuarios.nome AS autor, noticias.texto, noticias.imagem
+                FROM noticias INNER JOIN usuarios
+                ON noticias.usuario_id = usuarios.id
+                WHERE noticias.id = :id";
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindValue(":id", $this->id, PDO::PARAM_INT);
+            $consulta->execute();
+            $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+        } catch (Exception $erro) {
+            die("Erro ao abrir a categoria: ".$erro->getMessage());
+        }
+        return $resultado;
+    }
+>>>>>>> Stashed changes
 
 
 
