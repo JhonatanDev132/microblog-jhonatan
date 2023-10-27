@@ -30,7 +30,7 @@ $dados = $noticia->listarPorCategoria();
                     <a href="noticia.php?id=<?=$itemNoticia['id']?>" 
                     class="list-group-item list-group-item-action">
                         <h3 class="fs-6"><?=$itemNoticia['titulo']?></h3>
-                        <p><time><?=$itemNoticia['data']?></time> 
+                        <p><time><?=Utilitarios::formataData($itemNoticia['data'])?></time> 
                         - <?=$itemNoticia['autor']?></p>
                         <p><?=$itemNoticia['resumo']?></p>
                     </a>
