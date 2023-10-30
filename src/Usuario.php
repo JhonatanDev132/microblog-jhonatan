@@ -8,15 +8,12 @@ class Usuario {
     private string $email;
     private string $senha;
     private string $tipo;
-    private PDO $conexao;
+    private $conexao;
 
     public function __construct(){
         $this->conexao = Banco::conecta();
     }
 
-    /* Métodos para rotinas de CRUD no Banco */
-
-    // INSERT de Usuario
     public function inserir():void {
         $sql = "INSERT INTO usuarios(nome, email, senha, tipo)
                 VALUES(:nome, :email, :senha, :tipo)";
