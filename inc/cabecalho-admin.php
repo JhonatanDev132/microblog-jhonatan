@@ -63,7 +63,7 @@ if(isset($_GET['sair'])) $sessao->logout();
             <li class="nav-item">
                 <a class="nav-link" href="usuarios.php">Usuários</a>
             </li>
-            <?php } ?>
+            <?php }} ?>
 
             <li class="nav-item">
                 <a class="nav-link" href="../index.php" target="_blank">Área pública</a>
