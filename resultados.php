@@ -9,7 +9,7 @@ $quantidade = count($resultados);
 
 if($quantidade > 0){
 ?>
-    <h2 class="fs-5">Resultados: <span><?=$quantidade?></span></h2>
+    <h2 class="fs-5">Resultados: <span class="badge rounded-pill text-bg-success"><?=$quantidade?></span></h2>
     <div class="list-group">
         <?php foreach($resultados as $itemNoticia){ ?>
         <a class="list-group-item list-group-item-action"
