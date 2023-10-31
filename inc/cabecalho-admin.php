@@ -16,6 +16,7 @@ if(isset($_GET['sair'])) $sessao->logout();
 
 // DETECTANDO QUAL PÁGINA ESTÁ ABERTA (NECESSÁRIO PARA O SCRIPT DO RODAPPE-ADMIN)
 $pagina = basename($_SERVER['PHP_SELF']);
+//echo $pagina;
 ?>
 <!DOCTYPE html>
 <html lang="pt-br" class="h-100">
