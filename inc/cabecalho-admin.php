@@ -1,4 +1,5 @@
 <?php
+ob_start();
 use Microblog\ControleDeAcesso;
 require_once "../vendor/autoload.php";
 
@@ -12,6 +13,9 @@ $sessao->verificaAcesso();
 o usuário clica no link "Sair"), então faça o logout do sistema. */
 if(isset($_GET['sair'])) $sessao->logout();
 
+
+// DETECTANDO QUAL PÁGINA ESTÁ ABERTA (NECESSÁRIO PARA O SCRIPT DO RODAPPE-ADMIN)
+$pagina = basename($_SERVER['PHP_SELF']);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br" class="h-100">
