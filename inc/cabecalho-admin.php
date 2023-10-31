@@ -88,5 +88,5 @@ $pagina = basename($_SERVER['PHP_SELF']);
             <dialog id="modal-exclusao" class="mt-4 shadow-lg text-center rounded">    
                 <h2 class="alert alert-warning">Deseja realmente excluir?</h2>
                 <button id="sim" class="btn btn-success">Sim</button>
-                <button id="nao" class="btn btn-danger">Não</button>
+                <button id="nao" class="btn btn-danger" autofocus>Não</button>
             </dialog>
