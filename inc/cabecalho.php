@@ -1,3 +1,4 @@
+<? require_once "../vendor/autoload.php" ?>
 <!DOCTYPE html>
 <html lang="pt-br" class="h-100">
 <head>
@@ -11,7 +12,7 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="d-flex flex-column h-100">
-    
+
 <header id="topo" class="border-bottom sticky-top">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -27,7 +28,7 @@
         <li class="nav-item">
           <a class="nav-link" aria-current="page" href="index.php">Home</a>
         </li>
-        
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Categorias
@@ -55,5 +56,3 @@
 
 <main class="flex-shrink-0">
     <div class="container">
-
-    
